@@ -56,7 +56,17 @@ If the new path's directories does not exist, create them."
 
 (tabbar-mode)
 
-(set-default-font "Inconsolata-12")
+
+;clear for eshell
+
+
+(defun eshell/clear ()
+  "04Dec2001 - sailor, to clear the eshell buffer."
+  (interactive)
+  (let ((inhibit-read-only t))
+    (erase-buffer)))
+
+(set-default-font "Inconsolata-14")
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -69,3 +79,5 @@ If the new path's directories does not exist, create them."
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+
