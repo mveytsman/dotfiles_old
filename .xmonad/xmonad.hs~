@@ -1,0 +1,7 @@
+import XMonad
+
+main = do
+     xmonad $ defaultConfig
+     	    { terminal = "xterm"
+	    , modmask  = mod4Mask
+	    }

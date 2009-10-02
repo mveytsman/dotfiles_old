@@ -1,0 +1,8 @@
+URxvt.buffered: true
+URxvt.font: xft:Bitstream Vera Sans Mono:size=12
+URxvt.boldFont: xft:Bitstream vera Sans Mono:size=12:style=Bold
+URxvt.title: Terminal
+
+URxvt.background: grey15
+URxvt.foreground: grey
+URxvt.scrollBar: false
