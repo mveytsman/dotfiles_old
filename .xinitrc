@@ -30,6 +30,11 @@ if [ -x /usr/bin/gnome-power-manager ] ; then
    gnome-power-manager
 fi
 
-xrandr --output LVDS --auto --output VGA-0 --rate 75.0 --left-of LVDS --auto  &
+xrandr --newmode "1440x900_75.00"  136.75  1440 1536 1688 1936  900 903 909 942 -hsync +vsync
+xrandr --addmode VGA-0 "1440x900_75.00"
+xrandr --output VGA-0 --mode 1440x900_75.00 --output LVDS --mode 1280x800 --left-of VGA-0   & 
 
+xmodmap -e 'remove Lock = Caps_Lock'
+xmodmap -e 'keysym Caps_Lock = Control_L'
+xmodmap -e 'add Control = Control_L'
 exec  xmonad

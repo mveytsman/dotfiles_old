@@ -9,8 +9,9 @@ Config { font = "-*-Fixed-Bold-R-Normal-*-13-*-*-*-*-*-*-*"
                     , Run Swap [] 10
                     , Run Date "%a %b %_d %l:%M" "date" 10
                     , Run StdinReader
-                    ]
+		    , Run Com "sh" ["~/bin/mpd.sh"] "mpd" 10
+		    ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%StdinReader% }{ %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %CYTZ%"
+       , template = "%StdinReader%}{<fc=#267BC6>%mpd%</fc> | %cpu% | %memory% * %swap%    <fc=#ee9a00>%date%</fc> | %CYTZ%"
        }
