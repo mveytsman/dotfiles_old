@@ -1,17 +1,16 @@
 URxvt.buffered: true
-URxvt.font: xft:Bitstream Vera Sans Mono:size=12
+URxvt.font: xft: DejaVu Sans Mono:size=12
 URxvt.boldFont: xft:Bitstream vera Sans Mono:size=12:style=Bold
-URxvt.title: ArchWiki Example
 
 URxvt.background: grey15
 URxvt.foreground: grey
 URxvt.scrollBar: false
 
-Emacs.font: DejaVu Sans Mono-12
-Emacs.fontBackend: xft
-Emacs.menuBar: off
-Emacs.toolBar: -1
-Emacs.verticalScrollBars: off
+emacs.font: DejaVu Sans Mono-12
+emacs.fontBackend: xft
+emacs.menuBar: off
+emacs.toolBar: -1
+emacs.verticalScrollBars: off
 urxvt*color0:    #6c6c6c
 urxvt*color1:    #e9897c
 urxvt*color2:    #b6e77d

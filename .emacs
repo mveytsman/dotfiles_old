@@ -1,40 +1,24 @@
-;(tool-bar-mode -1)
-;(menu-bar-mode -1)
-;(scroll-bar-mode -1)
-;; w3m and wget
-(require 'w3m-load)
-(require 'wget)
-(setq w3m-default-display-inline-images 1)
-(setq w3m-use-cookies 1)
-(setq auto-mode-alist
+;;; This was installed by package-install.el.
+;;; This provides support for the package system and
+;;; interfacing with ELPA, the package archive.
+;;; Move this code earlier if you want to reference
+;;; packages in your .emacs.
+(when
+    (load
+     (expand-file-name "~/.emacs.d/elpa/package.el"))
+  (package-initialize))
 
-      (append auto-mode-alist
-	      '(("\\.[hg]s$"  . haskell-mode)
-		("\\.hi$"     . haskell-mode)
-		("\\.l[hg]s$" . literate-haskell-mode))))
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
 
-(autoload 'haskell-mode "haskell-mode"
-  "Major mode for editing Haskell scripts." t)
-(autoload 'literate-haskell-mode "haskell-mode"
-  "Major mode for editing literate Haskell scripts." t)
+
 (require 'color-theme)
-(color-theme-initialize)
+;(color-theme-initialize)
 (color-theme-charcoal-black)
-;(require 'emms-setup)
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-(setq ispell-program-name "aspell")
 
-;(emms-all)
-;(emms-default-players)
-;(load "~/.emacs.d/twittering-mode/twittering-mode.el")
-;(require 'twittering-mode)
-;(setq twittering-username "mveytsman")
-
-
-;(add-to-list 'load-path "~/emacs/org")
 (require 'org)
-(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+;(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
@@ -52,7 +36,7 @@
 
 (require 'ido)
 (ido-mode t)
-(ido-everywhere 0)
+(ido-everywhere 1)
 (setq ido-enable-flex-matching t)
 
 (global-set-key (kbd "<f12>") 'org-agenda)
@@ -61,18 +45,30 @@
 ;(load-file "~/.emacs.d/cedet/common/cedet.el")
 ;(add-to-list 'load-path "~/.emacs.d/ecb-snap")
 
-;(require 'ecb)
-
-(add-to-list 'load-path "~/.emacs.d/")
-(add-to-list 'load-path "~/.emacs.d/mingus/")
-(add-to-list 'load-path "~/.emacs.d/magit/")
-
-(require 'haml-mode)
-
-(require 'libmpdee)
-(require 'mingus)
+(load-file "~/.emacs.d/django-html-mode.el")
+(add-to-list 'auto-mode-alist '("\\.djhtml$" . django-html-mode))
 
 
 (setq c-basic-offset 4)
 (load "magit.el")
 (require 'magit)
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+
+(ansi-color-for-comint-mode-on)
+
+
+(smex-initialize)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+;; This is your old M-x.
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+
+(load-file "~/.emacs.d/espresso.el")
+(autoload #'espresso-mode "espresso" "Start espresso-mode" t)
+(add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
+(add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))

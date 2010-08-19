@@ -1,6 +1,8 @@
 import XMonad 
 import XMonad.Actions.PhysicalScreens
+--import XMonad.Actions.Plane
 import Data.Ratio ((%))
+import XMonad.ManageHook
 import XMonad.Layout.Magnifier
 import XMonad.Layout.ToggleLayouts
 import XMonad.Layout.Grid
@@ -13,30 +15,41 @@ import XMonad.Util.EZConfig
 import qualified XMonad.StackSet as W
 import System.IO
 import XMonad.Hooks.ManageHelpers
+import XMonad.Config.Desktop (desktopLayoutModifiers)
+import XMonad.Config.Gnome
+import XMonad.Actions.CycleWS
+import XMonad.Hooks.SetWMName
 
-main = do
-     xmproc <- spawnPipe "xmobar ~/.xmobarrc"
-     xmonad $ defaultConfig
+
+--import qualified Data.Map as M 
+
+
+---myManageHook :: [ManageHook]
+
+main = do 
+  xmonad $ gnomeConfig
             { workspaces = myWorkspaces 
-            , manageHook = manageDocks <+> composeOne [
-                                                     
-                                                      isFullscreen -?> doFullFloat
-               
-                                                      ]
-
+            , startupHook = startupHook gnomeConfig  >> setWMName "LG3D"
+            , manageHook = manageDocks <+> composeAll myManageHook
             , layoutHook = avoidStruts $ myLayoutHook 
             , modMask    = mod4Mask
-            , terminal   = "urxvt"
-            , logHook = dynamicLogWithPP $ xmobarPP
+            , terminal   = "gnome-terminal"
+   {-         , logHook = dynamicLogWithPP $ xmobarPP
                         { ppOutput = hPutStrLn xmproc
                         , ppTitle = xmobarColor "green" "" . shorten 50 
-                        }
+                        } -}
             } `additionalKeys` myKeys
+            
 myKeys =
        [ ((mod4Mask .|. shiftMask, xK_z), spawn "xscreensaver-command -lock")
-            , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
-            , ((0, xK_Print), spawn "scrot")
-            , ((mod4Mask .|. shiftMask, xK_space), sendMessage ToggleLayout )
+       , ((controlMask, xK_Print), spawn "sleep 0.2; scrot -s")
+      --- , ((0, xK_Print), spawn "scrot")
+       , ((mod4Mask .|. shiftMask, xK_space), sendMessage ToggleLayout )
+       , ((mod4Mask, xK_p), spawn "gnome-do")
+       , ((mod4Mask, xK_Left), prevWS)
+       , ((mod4Mask, xK_Right),   nextWS )
+       , ((mod4Mask .|. shiftMask, xK_Left), shiftToPrev )
+       , ((mod4Mask .|. shiftMask, xK_Right), shiftToNext )
 
        ]
        ++
@@ -49,12 +62,18 @@ myKeys =
          | (i, k) <- zip myWorkspaces [xK_1 .. xK_9]
          , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
       
-       
+       -- ++
+      -- M.toList (planeKeys mod4Mask (Lines 3) Finite)
+
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
-myLayoutHook = toggleLayouts (noBorders $ smartBorders Full) (noBorders $ smartBorders simpleTabbed)  ||| tiled ||| Mirror tiled ||| Grid
+myLayoutHook = desktopLayoutModifiers (toggleLayouts (noBorders $ smartBorders simpleTabbed)  (noBorders $ smartBorders Full) ||| tiled ||| Mirror tiled ||| Grid)
              where
                 tiled = Tall nmaster delta ratio
                 nmaster = 1
                 ratio = 1/2
                 delta = 3/100 
+myManageHook = 
+    [ resource  =? "Do"   --> doIgnore
+    ,  isFullscreen --> doFullFloat
+    ]
