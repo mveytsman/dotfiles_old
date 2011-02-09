@@ -14,7 +14,7 @@
 
 
 (require 'color-theme)
-;(color-theme-initialize)
+(color-theme-initialize)
 (color-theme-charcoal-black)
 
 (require 'org)
@@ -27,7 +27,10 @@
 (setq org-agenda-custom-commands
     '(("w" todo "WAITING" nil)
     ("n" todo "NEXT" nil)
-    ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT"))))
+    ("d" "Agenda + Next Actions" ((agenda) (todo "NEXT")))))
+(setq org-startup-folded 'showall
+      org-hide-leading-stars 'hidestars
+    ;  org-odd-levels-only 'odd)
 )
 
 (setq org-todo-keywords (quote ((sequence "TODO(t)" "CANCELLED(c)" "NEXT(n)" "WAITING(w)" "DONE(d)" ))))
@@ -50,8 +53,8 @@
 
 
 (setq c-basic-offset 4)
-(load "magit.el")
-(require 'magit)
+;;(load "magit.el")
+;;(require 'magit)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
@@ -72,3 +75,73 @@
 (autoload #'espresso-mode "espresso" "Start espresso-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js$" . espresso-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . espresso-mode))
+
+
+;;(add-to-list 'load-path "~/.emacs.d/")
+;;(require 'auto-complete-config)
+;;(add-to-list 'ac-dictionary-directories "~/.emacs.d//ac-dict")
+;;(ac-config-default)
+(setq elmo-imap4-default-stream-type 'ssl)
+
+
+
+
+(setq gnus-select-method '(nnimap "max@securitycompass.com"
+              (nnimap-address "imap.collaborationhost.net")
+	      (nnimap-stream ssl)
+	      ))
+
+
+(setq imap-ssl-program "openssl s_client -tls1 -connect %s:%p")
+
+(global-set-key (read-kbd-macro "<M-tab>") 'hippie-expand)    
+
+
+
+;; Fetch only part of the article if we can.  I saw this in someone
+;; else's .gnus
+(setq gnus-read-active-file 'some)
+
+;; Tree view for groups.  I like the organisational feel this has.
+(add-hook 'gnus-group-mode-hook 'gnus-topic-mode)
+
+;; Threads!  I hate reading un-threaded email -- especially mailing
+;; lists.  This helps a ton!
+(setq gnus-summary-thread-gathering-function 
+      'gnus-gather-threads-by-subject)
+
+
+(setq ssl-certificate-verification-policy 1)
+(setq ssl-program-name "openssl")
+(setq ssl-program-arguments '("s_client"
+		    "-quiet"
+		    "-host" host
+		    "-port" service))
+
+(setq wl-message-ignored-field-list '("^.*:")
+wl-message-visible-field-list
+'("^\\(To\\|Cc\\):"
+
+"^Subject:"
+"^\\(From\\|Reply-To\\):"
+"^\\(Posted\\|Date\\):"
+"^[xX]-[Ff]ace:"
+)
+wl-message-sort-field-list
+'("^From"
+
+"^Organization:"
+"^X-Attribution:"
+"^Subject"
+"^Date"
+"^To"
+"^Cc"))
+
+
+
+ 	
+(require 'tex-site)
+
+;;(load-file "~/.emacs.d/google-c-style.el")
+;;(require 'google-c-style)
+;;(add-hook 'c-mode-common-hook 'google-set-c-style)
