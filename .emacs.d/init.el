@@ -18,7 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("810a580e75aca47fc70e40f2adbebbcd27b978f9" "0174d99a8f1fdc506fa54403317072982656f127" default))))
+ '(custom-safe-themes (quote ("2e130c0ce1b485fde7ba3b65ebc68cdd883ef6a7" "810a580e75aca47fc70e40f2adbebbcd27b978f9" "0174d99a8f1fdc506fa54403317072982656f127" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -28,7 +28,9 @@
 
 ;; used to be maxim.el
 ;; fonts
-(set-face-attribute 'default nil :font "Deja Vu Sans Mono-12")
+;Doesn't work on windows :(
+;(set-face-attribute 'default nil :font "Deja Vu Sans Mono-12")
+(set-default-font "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1")
 
 ;; the visual bell is broken on macs in emacs 23
 (setq ring-bell-function 'ignore)
@@ -37,7 +39,7 @@
 ;;(setenv "PATH" (concat (getenv "PATH") ":/usr/texbin" ":/usr/local/bin"))
 ;;(setq exec-path (append exec-path '("/usr/texbin" "/usr/local/bin")))
 ;;(require 'tex-site)
-;; I prefer M-tab for hippie expand
+; I prefer M-tab for hippie expand
 (global-set-key (read-kbd-macro "<M-tab>") 'hippie-expand)
 
 ;; smex is like ido but for M-x
@@ -70,3 +72,4 @@
 (add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized")
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
 (load-theme 'solarized-dark)
+
