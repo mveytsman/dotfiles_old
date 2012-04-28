@@ -18,7 +18,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes (quote ("2e130c0ce1b485fde7ba3b65ebc68cdd883ef6a7" "810a580e75aca47fc70e40f2adbebbcd27b978f9" "0174d99a8f1fdc506fa54403317072982656f127" default))))
+ '(custom-safe-themes (quote ("fc5fcb6f1f1c1bc01305694c59a1a861b008c534cae8d0e48e4d5e81ad718bc6" "2e130c0ce1b485fde7ba3b65ebc68cdd883ef6a7" "810a580e75aca47fc70e40f2adbebbcd27b978f9" "0174d99a8f1fdc506fa54403317072982656f127" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -30,7 +30,7 @@
 ;; fonts
 ;Doesn't work on windows :(
 ;(set-face-attribute 'default nil :font "Deja Vu Sans Mono-12")
-(set-default-font "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1")
+;(set-default-font "-outline-Consolas-normal-r-normal-normal-14-97-96-96-c-*-iso8859-1")
 
 ;; the visual bell is broken on macs in emacs 23
 (setq ring-bell-function 'ignore)
