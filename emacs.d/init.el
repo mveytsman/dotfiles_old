@@ -5,7 +5,7 @@
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
-(defvar my-packages '(starter-kit starter-kit-ruby starter-kit-js starter-kit-eshell starter-kit-bindings color-theme coffee-mode find-file-in-project idle-highlight-mode ido-ubiquitous inf-ruby magit markdown-mode paredit quack rvm smex)
+(defvar my-packages '(starter-kit starter-kit-ruby starter-kit-js starter-kit-eshell starter-kit-bindings color-theme coffee-mode find-file-in-project idle-highlight-mode ido-ubiquitous inf-ruby magit markdown-mode paredit quack rvm smex shell-switcher)
   "A list of packages to ensure are installed at launch.")
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -14,6 +14,8 @@
 ;; package specific initialization 
 (smex-initialize)
 (rvm-use-default)
+(require 'shell-switcher)
+(setq shell-switcher-mode t)
 
 ;; OS X breaks some things
 (if (eq system-type 'darwin)
