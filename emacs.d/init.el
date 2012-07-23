@@ -79,6 +79,4 @@
 
 ;;racket mode
 (require 'quack)
-(load-file "~/.emacs.d/packages/geiser/elisp/geiser.el")
-(setq geiser-racket-binary "/Applications/Racket v5.2.1/bin/racket")
 
