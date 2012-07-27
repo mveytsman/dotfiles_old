@@ -102,7 +102,6 @@
            '(lambda() (auto-fill-mode -1)))
 (add-hook 'after-change-major-mode-hook 
            '(lambda() (auto-fill-mode -1)))
-
 ;;4 space tabs
 (setq-default tab-width 4)
 (setq c-default-style "linux"
