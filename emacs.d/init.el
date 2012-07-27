@@ -1,4 +1,6 @@
 ; == Initialization == 
+;i hate beeps
+(setq ring-bell-function 'ignore)
 (require 'package)
 (add-to-list 'package-archives
              '("marmalade" . "http://marmalade-repo.org/packages/") t)
@@ -10,12 +12,33 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-
+;; A quick & ugly PATH solution to Emacs on Mac OSX
+   (if (eq system-type 'darwin)
+      (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:" (getenv "PATH"))))
 ;; package specific initialization 
 (smex-initialize)
 (rvm-use-default)
 (require 'shell-switcher)
 (setq shell-switcher-mode t)
+;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-pry")
+;(require 'pry)
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+(setq
+      nxhtml-global-minor-mode t
+      mumamo-chunk-coloring 'sublime-colored
+      mumamo-background-colors nil
+      nxhtml-skip-welcome nil
+      indent-region-mode t
+      rng-nxml-auto-validate-flag nil
+      nxml-degraded t)
+(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo-mode))
+;; Mumamo is making emacs 23.3 freak out:
+(eval-after-load "bytecomp"
+  '(progn 
+     (add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-beginning-of-syntax-function)
+     (add-to-list 'byte-compile-not-obsolete-vars
+                  'font-lock-syntactic-keywords)))
 
 ;; OS X breaks some things
 (if (eq system-type 'darwin)
@@ -24,6 +47,8 @@
       (setq-default ispell-program-name "/usr/local/bin/aspell")
       ;visual bell looks crappy
       (setq visible-bell nil)))
+; ruby-mode add stupid comments to files
+(setq ruby-insert-encoding-magic-comment nil)
 
 ; == Themes and Fonts ==
 (custom-set-variables
@@ -44,10 +69,15 @@
   (set-face-attribute 'default nil :font "Inconsolata Sans Mono-14"))
 
 ;; solarize theme
-(add-to-list 'load-path "~/.emacs.d/emacs-color-theme-solarized")
-(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized")
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/vendor/emacs-color-theme-solarized")
 (load-theme 'solarized-dark)
  
+; == Custom Commands ==
+(defun run-ipython ()
+  (interactive)
+  (term "ipython"))
+
 ; == Key Bindings ==
 ;; I prefer M-tab for hippie expand
 (global-set-key (read-kbd-macro "<M-tab>") 'hippie-expand)
@@ -58,8 +88,21 @@
   (progn
     (global-set-key (kbd "<s-return>") 'ns-toggle-fullscreen)
     (global-set-key (kbd "<C-return>") 'ns-toggle-fullscreen)))
+(global-set-key (kbd "C-,") 'run-ipython)
+(global-set-key (kbd "C-.") 'run-pry)
 
-; == Major Modes and Tabs ==
+; == Text Layout and Modes ==
+;;do line wrapping right
+(global-visual-line-mode t)
+(auto-fill-mode 1)
+(setq comment-auto-fill-only-comments t)
+(add-hook 'emacs-lisp-mode
+          '(lambda() (auto-fill-mode -1)))
+(add-hook 'eruby-html-mumamo-mode
+           '(lambda() (auto-fill-mode -1)))
+(add-hook 'after-change-major-mode-hook 
+           '(lambda() (auto-fill-mode -1)))
+
 ;;4 space tabs
 (setq-default tab-width 4)
 (setq c-default-style "linux"
@@ -81,4 +124,3 @@
 
 ;;racket mode
 (require 'quack)
-
