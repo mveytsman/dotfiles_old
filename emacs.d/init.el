@@ -32,13 +32,16 @@
       rng-nxml-auto-validate-flag nil
       nxml-degraded t)
 (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo-mode))
-;; Mumamo is making emacs 23.3 freak out:
-(eval-after-load "bytecomp"
-  '(progn 
-     (add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-beginning-of-syntax-function)
-     (add-to-list 'byte-compile-not-obsolete-vars
-                  'font-lock-syntactic-keywords)))
+;; Mumamo is making emacs 24 freak out:
+(setq byte-compile-warnings '(not nresolved
+                                  free-vars
+                                  callargs
+                                  redefine
+                                  obsolete
+                                  noruntime
+                                  cl-functions
+                                  interactive-only
+                                  ))
 
 ;; OS X breaks some things
 (if (eq system-type 'darwin)
