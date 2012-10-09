@@ -15,6 +15,8 @@
 ;; A quick & ugly PATH solution to Emacs on Mac OSX
    (if (eq system-type 'darwin)
       (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:" (getenv "PATH"))))
+;; Load path for non package.el packages
+(add-to-list 'load-path "~/.emacs.d/vendor/deft/")
 ;; package specific initialization 
 (smex-initialize)
 (rvm-use-default)
@@ -31,7 +33,13 @@
       indent-region-mode t
       rng-nxml-auto-validate-flag nil
       nxml-degraded t)
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo-mode))
+(add-to-list 'auto-mode-alist '(".erb\\'" . eruby-html-mumamo-mode))
+(add-to-list 'auto-mode-alist '(".jad\\'" . java-mode))
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(custom-set-variables
+ '(js2-basic-offset 2)
+ '(js2-bounce-indent-p t)
+)
 ;; Mumamo is making emacs 24 freak out:
 (setq byte-compile-warnings '(not nresolved
                                   free-vars
@@ -52,6 +60,20 @@
       (setq visible-bell nil)))
 ; ruby-mode add stupid comments to files
 (setq ruby-insert-encoding-magic-comment nil)
+;; ECB mode
+;(setq stack-trace-on-error t)
+;(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
+;(ecb-activate)
+;(ecb-byte-compile)
+;;racket mode
+(require 'quack)
+
+;; deft mode
+(require 'deft)
+(setq deft-extension "org") 
+(setq deft-text-mode 'org-mode)
+(setq deft-use-filename-as-title t)
+(setq deft-directory "~/Dropbox/org")
 
 ; == Themes and Fonts ==
 (custom-set-variables
@@ -96,15 +118,17 @@
 
 ; == Text Layout and Modes ==
 ;;do line wrapping right
-(global-visual-line-mode t)
-(auto-fill-mode 1)
-(setq comment-auto-fill-only-comments t)
-(add-hook 'emacs-lisp-mode
-          '(lambda() (auto-fill-mode -1)))
-(add-hook 'eruby-html-mumamo-mode
-           '(lambda() (auto-fill-mode -1)))
-(add-hook 'after-change-major-mode-hook 
-           '(lambda() (auto-fill-mode -1)))
+;(global-visual-line-mode t)
+;(toggle-word-wrap 1)
+;(auto-fill-mode 1)
+;(setq-default word-wrap -1)
+;(setq comment-auto-fill-only-comments t)
+;(add-hook 'emacs-lisp-mode
+;          '(lambda() (auto-fill-mode -1)))
+;(add-hook 'eruby-html-mumamo-mode
+;           '(lambda() (auto-fill-mode -1)))
+;(add-hook 'after-change-major-mode-hook 
+;           '(lambda() (auto-fill-mode -1)))
 ;;4 space tabs
 (setq-default tab-width 4)
 (setq c-default-style "linux"
@@ -124,5 +148,3 @@
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
-;;racket mode
-(require 'quack)
