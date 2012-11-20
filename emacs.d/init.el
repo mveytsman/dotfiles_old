@@ -12,14 +12,14 @@
 (dolist (p my-packages)
   (when (not (package-installed-p p))
     (package-install p)))
-;; A quick & ugly PATH solution to Emacs on Mac OSX
+;; A quick & ugly PATH solution to Emacs on Mac OSX. Referencing the
    (if (eq system-type 'darwin)
-      (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:" (getenv "PATH"))))
+         (setenv "PATH" (concat "/usr/local/bin:/usr/local/sbin:" (getenv "PATH"))))
 ;; Load path for non package.el packages
 (add-to-list 'load-path "~/.emacs.d/vendor/deft/")
 ;; package specific initialization 
 (smex-initialize)
-(rvm-use-default)
+;(rvm-use-default)
 (require 'shell-switcher)
 (setq shell-switcher-mode t)
 ;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-pry")
