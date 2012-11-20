@@ -1,0 +1,11 @@
+*~
+#*#
+emacs.d/.smex-items
+emacs.d/elpa/
+emacs.d/backups/
+emacs.d/auto-save-list/
+emacs.d/backups
+emacs.d/eshell/
+emacs.d/places
+emacs.d/tramp
+emacs.d/url/
