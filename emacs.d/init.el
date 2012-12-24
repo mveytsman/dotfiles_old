@@ -7,7 +7,7 @@
 (package-initialize)
 (when (not package-archive-contents)
   (package-refresh-contents))
-(defvar my-packages '(starter-kit starter-kit-ruby starter-kit-js starter-kit-eshell starter-kit-bindings color-theme coffee-mode find-file-in-project idle-highlight-mode ido-ubiquitous inf-ruby magit markdown-mode paredit quack rvm smex shell-switcher haml-mode)
+(defvar my-packages '(starter-kit starter-kit-ruby starter-kit-js starter-kit-eshell starter-kit-bindings color-theme coffee-mode find-file-in-project idle-highlight-mode ido-ubiquitous inf-ruby magit markdown-mode paredit quack rvm smex shell-switcher haml-mode yaml-mode rinari ecb-snapshot)
   "A list of packages to ensure are installed at launch.")
 (dolist (p my-packages)
   (when (not (package-installed-p p))
@@ -40,6 +40,7 @@
 (add-to-list 'auto-mode-alist '(".erb\\'" . eruby-html-mumamo-mode))
 (add-to-list 'auto-mode-alist '(".jad\\'" . java-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 (custom-set-variables
  '(js2-basic-offset 2)
  '(js2-bounce-indent-p t)
@@ -65,10 +66,10 @@
 ; ruby-mode add stupid comments to files
 (setq ruby-insert-encoding-magic-comment nil)
 ;; ECB mode
-;(setq stack-trace-on-error t)
-;(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
-;(ecb-activate)
-;(ecb-byte-compile)
+(setq stack-trace-on-error t)
+(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--C-mouse-1))
+(ecb-activate)
+(ecb-byte-compile)
 ;;racket mode
 (require 'quack)
 
@@ -152,3 +153,5 @@
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
+;; start server
+(server-start)
