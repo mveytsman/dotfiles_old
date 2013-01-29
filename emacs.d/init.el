@@ -37,6 +37,7 @@
       indent-region-mode t
       rng-nxml-auto-validate-flag nil
       nxml-degraded t)
+(defalias 'inf-ruby-keys 'inf-ruby-setup-keybindings)
 (add-to-list 'auto-mode-alist '(".erb\\'" . eruby-html-mumamo-mode))
 (add-to-list 'auto-mode-alist '(".jad\\'" . java-mode))
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -123,17 +124,17 @@
 
 ; == Text Layout and Modes ==
 ;;do line wrapping right
-;(global-visual-line-mode t)
-;(toggle-word-wrap 1)
-;(auto-fill-mode 1)
-;(setq-default word-wrap -1)
-;(setq comment-auto-fill-only-comments t)
-;(add-hook 'emacs-lisp-mode
-;          '(lambda() (auto-fill-mode -1)))
-;(add-hook 'eruby-html-mumamo-mode
-;           '(lambda() (auto-fill-mode -1)))
-;(add-hook 'after-change-major-mode-hook 
-;           '(lambda() (auto-fill-mode -1)))
+(global-visual-line-mode t)
+(toggle-word-wrap 1)
+(auto-fill-mode 1)
+(setq-default word-wrap -1)
+(setq comment-auto-fill-only-comments t)
+(add-hook 'emacs-lisp-mode
+          '(lambda() (auto-fill-mode -1)))
+(add-hook 'eruby-html-mumamo-mode
+           '(lambda() (auto-fill-mode -1)))
+(add-hook 'after-change-major-mode-hook 
+           '(lambda() (auto-fill-mode -1)))
 ;;4 space tabs
 (setq-default tab-width 4)
 (setq c-default-style "linux"
@@ -153,5 +154,14 @@
 (add-hook 'coffee-mode-hook
   '(lambda() (coffee-custom)))
 
+;; Get rid of this pretty functions and lambdas nonsense
+(remove-hook 'prog-mode-hook 'esk-pretty-lambdas)
+(font-lock-remove-keywords 'js-mode  `(("\\(function *\\)("
+                       (0 (progn (compose-region (match-beginning 1)
+                                                 (match-end 1) "\u0192")nil)))))
+;; open in OSX doesn't create a new window
+(setq ns-pop-up-frames nil)
+
 ;; start server
 (server-start)
+
