@@ -57,6 +57,10 @@
                                   interactive-only
                                   ))
 
+
+;; Find file at point is the most annoying thing ever, always pining shit
+(setq ido-use-filename-at-point 'f)
+
 ;; OS X breaks some things
 (if (eq system-type 'darwin)
     (progn
