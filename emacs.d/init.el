@@ -59,7 +59,8 @@
 
 
 ;; Find file at point is the most annoying thing ever, always pining shit
-(setq ido-use-filename-at-point 'f)
+(setq ido-use-filename-at-point nil)
+(setq ido-use-url-at-point nil)
 
 ;; OS X breaks some things
 (if (eq system-type 'darwin)
